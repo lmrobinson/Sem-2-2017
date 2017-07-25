@@ -1,0 +1,199 @@
+\documentclass[8pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{geometry}
+\setlength{\parskip}{0.9em}
+\setlength\parindent{0pt}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\usepackage{adjustbox}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\graphicspath{Users/luke/Desktop?}
+\title{PHYS2055 - Problem Set 4}
+\author{Luke Robinson (43740929)}
+%date{}
+\begin{document}
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+\maketitle
+\section*{4.1}
+\subsection*{(a)}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale = 0.4]{ps4_1}
+\caption{Air-glass interfaces which seal an evacuated volume.}
+\label{default}
+\end{center}
+\end{figure}
+
+To calculate the intensity of the final transmittance, an interaction involving no losses and no secondary reflections is assumed. The transmittance from an interface is the ratio of the transmitted and incident flux, while the reflectance is the ration of the reflected and incident flux. For a beam of light incident normal on an interface:
+\begin{align}
+	T =& \frac{I_t \cos{\theta}}{I_i \cos{\theta}}\\
+	=&~ \frac{I_t}{I_i} ~~~~\text{(Normal incidence)}\\
+	R =&~ \left(\frac{E_0r}{E_0i}\right)^2 = \frac{I_r}{I_i}
+\end{align}
+Where $T$ is the trasmittance, $I_t$ is the transmitted intensity, $I_i$ is the incident intensity, $R$ is the reflectance, and $I_r$ is the reflected intensity. 
+
+In this case, for a beam normal to an interface, the coefficients of reflectivity, $r$, of the Fresnel equations take the following form:
+\begin{align}
+	r_\perp = r_\parallel = \frac{n_t - n_i}{n_t + n_i} 		
+\end{align}
+Where $n$ is the refractive index of each material at the interface. 
+
+Therefore, since energy is conserved and the coefficient of reflectivity, $r$, is just the ratio of the electric fields:
+\begin{align}
+	T =&~ 1 - R\\
+	=&~1 - r^2
+\end{align}
+Therefore an expression can be obtained for the transmission intensity for a beam of light incident perpendicular on an interface of differing refractive indices:
+\begin{align}
+	I_t  =&~ I_i (1 - r^2)\\
+	=&~I_i \left(1-\left(\frac{n_t - n_i}{n_t + n_i}\right)^2\right) 
+\end{align}
+To calculate the final transmission intensity of a beam of light of normal incidence on a series of refractive indices, this expression can be used iteratively for each interface encountered by the beam of light. For two sheets of glass with refractive indices of $n_{t,1} = 1.50$ and $n_{t,2} =  1.40$ respectively which are contained in a system of air ($n_{i,1}, n_{,2} = 1.00$) which seal a vacuum ($n_{t,2} = 1.00$) between them:
+\begin{align}
+	I_{t} =&~\left[\left((1 - \left(\frac{n_{t,1} - n_{i,1}}{n_{t,1} + n_{i,1}}\right)^2\right)^2 \left(1 - \left(\frac{n_{t,2} - n_{i,2}}{n_{t,2} + n_{i,2}}\right)^2\right)^2\right] \cdot I_i\\  
+	=&~ 0.871~ I_{i}
+\end{align}
+Therefore, the transmitted wavelength for the geometry of the problem given is about 87$\%$ of the initial incident intensity assuming no losses or higher order reflections.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale = 0.4]{ps4_2}
+\caption{Air-glass interfaces which seal volume of water.}
+\label{default}
+\end{center}
+\end{figure}
+
+A similar procedure is conducted for a sealed volume of water ($n = 1.33$) between the air-glass interfaces, the difference being that the coefficient, $r$, must be determine for each interface:
+\begin{align}
+	I_{t} = 0.930~I_{i}
+\end{align} 
+It seems like the greater the refractive index between the air-glass interfaces, the greater the transmission intensity. This is at least the case for an evacuated volume vs a water filled volume.
+\subsection*{(b)}
+Let the following expression be the product of the transmittance for each interface involving the inner fluid:
+\begin{align}
+	T(n) =&~\left(1 - \left(\frac{n - 1.50}{n + 1.50}\right)^2\right )\left(1 - \left(\frac{1.40 - n}{n + 1.40}\right)^2\right)
+\end{align}
+Where $n$ is the refractive index of the sealed fluid. Since the refractive index cannot be less than 1, there must be a refractive index on the interval 1 to $\infty $ for which maximises this expression to obtain the maximum transmission intensity. Taking the derivative of equation (13) with respect to the refractive index:
+\begin{align}
+	\frac{dT(n)}{dn} = \frac{141.12n-67.2 n^3}{(n+1.4)^3 (n+1.5)^3}
+\end{align}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale = 0.5]{ps4_3}
+\caption{The curve of equation (13)}
+\label{default}
+\end{center}
+\end{figure}
+
+In order to find the local minima and maxima, the roots of the equation (13) are found by setting the expression equal to 0:
+\begin{align}
+	\frac{dT(n)}{dn} =&~ \frac{141.12n-67.2 n^3}{(n+1.4)^3 (n+1.5)^3} = 0\\
+	\Rightarrow n =&~ (-1.45, 0, 1.45)
+\end{align}
+Therefore, since these roots represent the points in which equation (13) have a local maxima or minima, and by noting that the refractive index cannot be less than one, the refractive index for which maximises the transmission intensity is n = 1.45. Since it can be shown analytically that equation (13) approximately approaches 0 as n goes to infinity, it is reasonable to assume that the value n = 1.45 corresponds to the global maximum of the function over the interval 1 to $\infty$ and does in fact coincide with the value in which maximises equation (12) and hence the transmission intensity. 
+
+\section*{4.2}
+``A hollow wave guide is constructed from perfectly conducting walls and is 42 cm
+long. It has a square cross-section of side length 4.5 cm. The wave guide is
+illuminated with electromagnetic radiation with a frequency of f = 6.2 $\times$ 109 Hz"
+\subsection*{(a)}
+A general solution to Maxwell's equations can be obtained that satisfy the following boundary conditions for the electric and magnetic field at the walls of a perfectly conducting waveguide:
+\begin{align}
+	E_\parallel =&~ 0 \\
+	B_\perp =&~ 0
+\end{align}
+\begin{align}
+	E_x =&~ E_{nm}\cos\left({\frac{n\pi x}{a}}\right)\sin\left({\frac{m\pi y}{b}}\right) e^{i(\omega t - k_zz)}\\
+	E_y =&~ E_{nm}\sin\left({\frac{n\pi x}{a}}\right)\cos\left({\frac{m\pi y}{b}}\right) e^{i(\omega t - k_zz)}
+\end{align}
+The cut off frequency is obtained by first nothing that the expression under the square root sign of the wave number through the waveguide must be greater than or equal to zero.
+\begin{align}
+	k_g = \sqrt{(\omega/c)^2 - (n\pi/a)^2 - (m\pi/b)^2}
+\end{align}
+Where $k_g$ is the wavenumber, $\omega$ is the frequency, $c$ is the speed of light through a vacuum, and $n$ and $m$ are integers which represent the modes for which the wave is able to propagate through the waveguide. If this weren't the case, the wave would decay exponentially upon entry to the waveguide. Therefore, solving for the cut-off case:
+\begin{align}
+	\omega_c =&~ c\sqrt{(n\pi/a)^2 + (m\pi/b)^2}\\
+	\Rightarrow f_{nm} =& c/2\pi \sqrt{(n\pi/a)^2 + (m\pi/b)^2}
+\end{align}
+For a cross section of equal side length of 4.5 cm, the lowest cutoff frequency for the waveguide occurs for the mode $TE_{10}$ and so on:
+\begin{align}
+	f_{1,0} = f_{0,1} =~& 3.32\times 10^{9} ~Hz\\
+	f_{2,0} = f_{0,2} =~& 6.67\times 10^{9} ~Hz\\
+	f_{1,1} =~&4.71 \times 10^{9} ~Hz
+\end{align}
+Therefore, since $f_c < f$ is the condition in which allows the wave to propagate through the waveguide, given the frequency in which the wave propagates and the dimensions of the waveguide, the allowed TE modes are $TE_{1,0}$, $TE_{0,1}$, and $TE_{1,1}$. Assuming 
+\subsection*{(b)}
+In order for the boundary conditions stated above to be satisfied by the $TE_{1,0}$ and $TE_{0,1}$ modes, there must exist some form of complete linear polarisation for each case. For the $TE_{1,0}$ case, the wave must exhibit vertical polarisation ($E_{0x} = 0$). This will ensure that the electric field is perpendicular to the top and bottom walls of the guide and parallel at the side walls. The condition for the electric field at the side walls is also satisfied since the magnitude of the electric approaches zero in a sinusoidal fashion as dictated by the solutions to Maxwell's equations for a conducting waveguide above. The boundary conditions for the magnetic field are also satisfied since its direction is perpendicular to the electric field, satisfying the boundary condition in this case. The same reasoning applies for the $TE_{0,1}$ case except the wave must exhibit horizontal linear polarisation ($E_{0y} = 0$). 
+
+The $TE_{1,1}$ mode will exhibit equal polarisations and therefore the full set of wave equations, equation (18) and (19) above, must be used in order to satisfy the boundary conditions. As the wave approaches the side walls and top and bottom walls, $x \rightarrow (0, a)$ and $y \rightarrow (0,b)$, the trigonometric terms in equations (18) and (19) allow each polarisation to decay to meet the boundary conditions. The magnetic field in this case follows that the boundary conditions are met because of the perpendicular relation to the electric field. 
+
+\subsection*{(c)}
+The group velocity:
+\begin{align}
+	v_g =&~ c \sqrt{1 - (\omega_c / \omega)^2}\\
+	=&~ 0.85~c ~~~~~(TE_{1,0},~ TE_{0,1})\\
+	=&~0.65~c ~~~~~~(TE_{1,1})
+\end{align}
+The phase velocity:
+\begin{align}
+	v_p =&~ \frac{c}{\sqrt{1 - (\omega_c / \omega)^2}}\\
+	=&~1.18~c ~~~~~~(TE_{1,0},~ TE_{0,1})\\
+	=&~1.54~c~~~~~~(TE_{1,1})
+\end{align}
+The effect of having multiples modes in the wave guide limits the rate at which information is passed from one point to another. This is evidenced by the group velocity for each mode where the $TE_{1,1}$ has a group velocity significantly less than the other modes. In other words, there is less energy carried by the travelling wave through the waveguide for higher modes. 
+
+The phase velocity on the other hand relates to the angle in which the waves intersect. The wavefront from this interaction can cause a phase velocity that is greater than the speed of light in a vacuum. However, no information is transferred from such an interaction because this is just a seemingly ordered interaction of many points within each wave and only gives the illusion of information or energy being transferred. 
+
+\begin{align}
+e = mc^2
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
